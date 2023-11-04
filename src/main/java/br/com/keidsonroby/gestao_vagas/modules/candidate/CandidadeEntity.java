@@ -1,17 +1,28 @@
 package br.com.keidsonroby.gestao_vagas.modules.candidate;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
+@Entity(name = "candidate")
 public class CandidadeEntity {
 
+  @Id // id vai ser a chave primária;
+  @GeneratedValue(strategy = GenerationType.UUID) // cria o id único automaticamente;
   private UUID id;
+
+  // @Column(name = "nome") // para renomear o nome da minha coluna;
   private String name;
 
   @Pattern(regexp = "\\S+", message =  "O campo [usernaem], não deve conter espaços, ou use underline * _ * em espaços.")
@@ -24,4 +35,7 @@ public class CandidadeEntity {
   private String password;
   private String description;
   private String curriculum;
+
+  @CreationTimestamp
+  private LocalDateTime createdAt;
 }
