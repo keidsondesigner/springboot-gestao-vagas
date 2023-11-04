@@ -10,7 +10,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/candidate")
-public class CaditateController {
+public class CadidateController {
 
   
   @PostMapping("/")
