@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.keidsonroby.gestao_vagas.modules.candidate.CandidadeEntity;
+import br.com.keidsonroby.gestao_vagas.modules.candidate.CandidateEntity;
 import jakarta.validation.Valid;
 
 @RestController
@@ -14,7 +14,7 @@ public class CaditateController {
 
   
   @PostMapping("/")
-  public void create(@Valid @RequestBody CandidadeEntity candidateEntity) {
+  public void create(@Valid @RequestBody CandidateEntity candidateEntity) {
     System.out.println("Candidato");
     System.out.println(candidateEntity.getEmail());
 

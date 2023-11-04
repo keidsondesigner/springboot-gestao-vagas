@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Data
 @Entity(name = "candidate")
-public class CandidadeEntity {
+public class CandidateEntity {
 
   @Id // id vai ser a chave primária;
   @GeneratedValue(strategy = GenerationType.UUID) // cria o id único automaticamente;
