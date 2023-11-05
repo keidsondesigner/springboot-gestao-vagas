@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
-@Entity(name = "company")
+@Entity(name = "company") // nome da tabela
 @Data
 public class CompanyEntity {
 
