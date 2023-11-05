@@ -25,7 +25,7 @@ public class CompanyEntity {
   // @Column(name = "nome") // para renomear o nome da minha coluna;
   private String name;
 
-  @Pattern(regexp = "\\S+", message =  "O campo [usernaem], não deve conter espaços, ou use underline * _ * em espaços.")
+  @Pattern(regexp = "\\S+", message =  "O campo [username], não deve conter espaços, ou use underline * _ * em espaços.")
   private String username;
 
   @Email(message = "O campo [email], deve conter um email válido.")
