@@ -3,6 +3,7 @@ package br.com.keidsonroby.gestao_vagas.modules.company.entities;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
@@ -25,14 +26,16 @@ public class JobEntity {
   // Foreign Key (FK); 
   // Muitos Jobs para uma company;
   @ManyToOne
-  @JoinColumn(name = "company_id", insertable = false, updatable = false)
+  @JoinColumn(name = "company_id", insertable = false, updatable = false) // anotation de relacionamento 
   private CompanyEntity companyEntity;
 
-  @Column(name = "company_id")
+  @Column(name = "company_id", nullable = false)
   private UUID companyId;
 
   private String description;
   private String level;
+
+  @NotBlank(message = "Esse campo é obrigatório.")
   private String benefits;
 
   @CreationTimestamp
