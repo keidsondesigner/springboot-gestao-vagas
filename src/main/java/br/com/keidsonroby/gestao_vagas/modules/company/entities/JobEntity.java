@@ -22,6 +22,15 @@ public class JobEntity {
   @Id // id vai ser a chave primária;
   @GeneratedValue(strategy = GenerationType.UUID) // cria o id único automaticamente;
   private UUID id;
+  private String description;
+  private String title;
+
+  @NotBlank(message = "Esse [benefits] é obrigatório.")
+  private String benefits;
+  
+  @NotBlank(message = "Esse [level] é obrigatório.")
+  private String level;
+
 
   // Foreign Key (FK); 
   // Muitos Jobs para uma company;
@@ -32,11 +41,6 @@ public class JobEntity {
   @Column(name = "company_id", nullable = false)
   private UUID companyId;
 
-  private String description;
-  private String level;
-
-  @NotBlank(message = "Esse campo é obrigatório.")
-  private String benefits;
 
   @CreationTimestamp
   private LocalDateTime createdAt;
