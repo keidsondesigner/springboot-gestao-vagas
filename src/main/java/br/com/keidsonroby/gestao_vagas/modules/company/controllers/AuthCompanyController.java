@@ -3,6 +3,8 @@ package br.com.keidsonroby.gestao_vagas.modules.company.controllers;
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +22,12 @@ public class AuthCompanyController {
   private AuthCompanyUseCase authCompanyUseCase;
 
   @PostMapping("/company")
-  public String createToken(@RequestBody AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
-      return this.authCompanyUseCase.execute(authCompanyDTO);
+  public ResponseEntity<Object> createToken(@RequestBody AuthCompanyDTO authCompanyDTO) {
+    try {
+      var result = this.authCompanyUseCase.execute(authCompanyDTO);
+      return ResponseEntity.ok().body(result);
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+    }
   }
 }

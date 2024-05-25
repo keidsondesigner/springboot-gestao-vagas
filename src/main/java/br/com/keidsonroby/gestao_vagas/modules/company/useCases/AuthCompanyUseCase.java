@@ -30,7 +30,7 @@ public class AuthCompanyUseCase {
     // Se a Company não existir, vai lançar uma exceção;
     var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(
       () -> {
-        throw new UsernameNotFoundException("Company not found");
+        throw new UsernameNotFoundException("Username or Password incorrect");
       });
 
     // Se a Company existir;
