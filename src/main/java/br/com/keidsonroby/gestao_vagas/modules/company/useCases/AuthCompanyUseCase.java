@@ -1,5 +1,8 @@
 package br.com.keidsonroby.gestao_vagas.modules.company.useCases;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 import br.com.keidsonroby.gestao_vagas.modules.company.dto.AuthCompanyDTO;
 import br.com.keidsonroby.gestao_vagas.modules.company.repositories.CompanyRepository;
+
 
 @Service
 public class AuthCompanyUseCase {
@@ -43,6 +47,7 @@ public class AuthCompanyUseCase {
     // Se a senha é igual "estiver correta"  -> Deve gerar o token
     Algorithm algorithm = Algorithm.HMAC256(secretKey); // tipo do algoritimo de criptografia
     var token = JWT.create().withIssuer("gestao_vagas")
+      .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
       .withSubject(company.getId().toString())
       .sign(algorithm);
     
