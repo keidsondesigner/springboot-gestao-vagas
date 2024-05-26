@@ -10,4 +10,5 @@ public interface CandidateRepository extends JpaRepository<CandidateEntity, UUID
   // faça a busca por username ou email;
   // Optional = se ele não encontrar, ele retorna a entidade ou nulo, e algumas outras operações;
   Optional<CandidateEntity> findByUsernameOrEmail(String username, String email);
+  Optional<CandidateEntity> findByUsername(String username);
 }
