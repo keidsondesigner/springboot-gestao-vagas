@@ -13,10 +13,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity(name = "job")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class JobEntity {
 
   @Id // id vai ser a chave primária;
