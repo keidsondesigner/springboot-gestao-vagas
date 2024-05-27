@@ -28,19 +28,27 @@ public class SecurityInterceptor extends OncePerRequestFilter {
         FilterChain filterChain
       )
         throws ServletException, IOException {
+          // Zerando as autenticações anteriores
           SecurityContextHolder.getContext().setAuthentication(null);
           String header = request.getHeader("Authorization");
-
           // System.out.println("Header: " + header);
-          if (header != null) {
-            var subjectToken = this.jwtProvider.validateToken(header);
-            if (subjectToken.isEmpty()) {
-              response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-              return;
+
+          if (request.getRequestURI().startsWith("/company")) {
+            if (header != null) {
+              var token = this.jwtProvider.validateToken(header);
+              if (token == null) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+              }
+
+              var roles = token.getClaim("roles").asList(Object.class);
+
+              request.setAttribute("company_id", token.getSubject());
+
+              UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getSubject(), null, Collections.emptyList());
+              
+              SecurityContextHolder.getContext().setAuthentication(auth);
             }
-            request.setAttribute("company_id", subjectToken);
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(subjectToken, null, Collections.emptyList());
-            SecurityContextHolder.getContext().setAuthentication(auth);
           }
 
           filterChain.doFilter(request, response);
