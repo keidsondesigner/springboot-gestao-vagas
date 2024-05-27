@@ -3,6 +3,8 @@ package br.com.keidsonroby.gestao_vagas.security;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -28,12 +30,13 @@ public class SecurityCandidateInterceptor extends OncePerRequestFilter {
       )
         throws ServletException, IOException {
           // Zerando as autenticações anteriores
-          SecurityContextHolder.getContext().setAuthentication(null);
+          // SecurityContextHolder.getContext().setAuthentication(null);
           String header = request.getHeader("Authorization");
 
           if (request.getRequestURI().startsWith("/candidate")) {
             if (header != null) {
               var token = this.jwtCandidateProvider.validateToken(header);
+              System.out.println("Token: " + token);
   
               if (token == null) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -44,7 +47,12 @@ public class SecurityCandidateInterceptor extends OncePerRequestFilter {
               
               var roles = token.getClaim("roles").asList(Object.class);
 
-              System.out.println("Token: " + token);
+              var grants = roles.stream().map(// trasnformo a lista em stream()
+                role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase()) // transformo o objeto em string
+              ).toList(); //  depois pego o stream() etransformo em uma lista novamente;
+
+              UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getSubject(), null, grants);
+              SecurityContextHolder.getContext().setAuthentication(auth);
             }
           }
 
