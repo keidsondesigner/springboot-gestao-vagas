@@ -22,7 +22,9 @@ public class SecurityConfig {
           // Rotas públicas;
           auth.requestMatchers("/candidate/").permitAll()
               .requestMatchers("/company/").permitAll()
-              .requestMatchers("/auth/company").permitAll();
+              .requestMatchers("/auth/company").permitAll()
+              .requestMatchers("/company/auth").permitAll()
+              .requestMatchers("/candidate/auth").permitAll();
           // E qualque outra, serão Rotas privadas e precisam de autenticação;
           auth.anyRequest().authenticated();
         })
