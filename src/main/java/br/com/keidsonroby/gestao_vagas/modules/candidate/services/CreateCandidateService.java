@@ -1,4 +1,4 @@
-package br.com.keidsonroby.gestao_vagas.modules.candidate.useCases;
+package br.com.keidsonroby.gestao_vagas.modules.candidate.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,7 +9,7 @@ import br.com.keidsonroby.gestao_vagas.modules.candidate.entities.CandidateEntit
 import br.com.keidsonroby.gestao_vagas.modules.candidate.repositories.CandidateRepository;
 
 @Service
-public class CreateCandidateUseCase {
+public class CreateCandidateService {
 
   @Autowired
   private PasswordEncoder passwordEncoder;

@@ -3,7 +3,7 @@ package br.com.keidsonroby.gestao_vagas.modules.company.controllers;
 import br.com.keidsonroby.gestao_vagas.modules.company.dto.CreateJobDTO;
 import br.com.keidsonroby.gestao_vagas.modules.company.entities.JobEntity;
 
-import br.com.keidsonroby.gestao_vagas.modules.company.useCases.CreateJobUseCase;
+import br.com.keidsonroby.gestao_vagas.modules.company.services.CreateJobService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class JobController {
 
     @Autowired
-    private CreateJobUseCase createJobUseCase;
+    private CreateJobService createJobService;
 
     @PostMapping("/")
     @PreAuthorize("hasRole('COMPANY')") // Só quem tem a ROLE COMPANY, PODE ACESSAR
@@ -38,6 +38,6 @@ public class JobController {
             .companyId(UUID.fromString(companyId.toString()))
             .build();
 
-        return this.createJobUseCase.execute(jobEntity);
+        return this.createJobService.execute(jobEntity);
     }
 }

@@ -1,4 +1,4 @@
-package br.com.keidsonroby.gestao_vagas.modules.company.useCases;
+package br.com.keidsonroby.gestao_vagas.modules.company.services;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -21,7 +21,7 @@ import br.com.keidsonroby.gestao_vagas.modules.company.repositories.CompanyRepos
 
 
 @Service
-public class AuthCompanyUseCase {
+public class AuthCompanyService {
 
   @Value("${security.token.secret}") // Acessando a variável no application.properties
   private String secretKey;

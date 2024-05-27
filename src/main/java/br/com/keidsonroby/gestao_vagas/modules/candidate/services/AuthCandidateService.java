@@ -1,4 +1,4 @@
-package br.com.keidsonroby.gestao_vagas.modules.candidate.useCases;
+package br.com.keidsonroby.gestao_vagas.modules.candidate.services;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -20,7 +20,7 @@ import br.com.keidsonroby.gestao_vagas.modules.candidate.dto.AuthCandidateRespon
 import br.com.keidsonroby.gestao_vagas.modules.candidate.repositories.CandidateRepository;
 
 @Service
-public class AuthCandidateUseCase {
+public class AuthCandidateService {
 
   @Value("${security.token.secret.candidate}") // Acessando a variável no application.properties
   private String secretKey;

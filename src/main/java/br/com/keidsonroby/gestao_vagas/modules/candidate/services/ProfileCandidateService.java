@@ -1,4 +1,4 @@
-package br.com.keidsonroby.gestao_vagas.modules.candidate.useCases;
+package br.com.keidsonroby.gestao_vagas.modules.candidate.services;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ import br.com.keidsonroby.gestao_vagas.modules.candidate.dto.ProfileCandidateRes
 import br.com.keidsonroby.gestao_vagas.modules.candidate.repositories.CandidateRepository;
 
 @Service
-public class ProfileCandidateUseCase {
+public class ProfileCandidateService {
 
   @Autowired
   private CandidateRepository candidateRepository;

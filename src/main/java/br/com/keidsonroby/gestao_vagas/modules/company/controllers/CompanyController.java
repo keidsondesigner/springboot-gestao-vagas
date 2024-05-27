@@ -2,14 +2,13 @@ package br.com.keidsonroby.gestao_vagas.modules.company.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.keidsonroby.gestao_vagas.modules.company.entities.CompanyEntity;
-import br.com.keidsonroby.gestao_vagas.modules.company.useCases.CreateCompanyUseCase;
+import br.com.keidsonroby.gestao_vagas.modules.company.services.CreateCompanyService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -17,12 +16,12 @@ import jakarta.validation.Valid;
 public class CompanyController {
 
   @Autowired
-  private CreateCompanyUseCase createCompanyUseCase;
+  private CreateCompanyService createCompanyService;
 
   @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody CompanyEntity companyEntity){
     try {
-      var company = this.createCompanyUseCase.execute(companyEntity);
+      var company = this.createCompanyService.execute(companyEntity);
       return ResponseEntity.ok().body(company);
     } catch (Exception e) {
       // e.printStackTrace();

@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.keidsonroby.gestao_vagas.modules.candidate.dto.AuthCandidateRequestDTO;
-import br.com.keidsonroby.gestao_vagas.modules.candidate.useCases.AuthCandidateUseCase;
+import br.com.keidsonroby.gestao_vagas.modules.candidate.services.AuthCandidateService;
 
 import javax.naming.AuthenticationException;
 
@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AuthCandidateController {
 
   @Autowired
-  private AuthCandidateUseCase authCandidateUseCase;
+  private AuthCandidateService authCandidateService;
 
   @PostMapping("/auth")
   public ResponseEntity<Object> auth(@RequestBody AuthCandidateRequestDTO authCandidateRequestDTO) {
     try {
-      var token = this.authCandidateUseCase.execute(authCandidateRequestDTO);
+      var token = this.authCandidateService.execute(authCandidateRequestDTO);
       return ResponseEntity.ok().body(token);
     } catch (AuthenticationException e) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());

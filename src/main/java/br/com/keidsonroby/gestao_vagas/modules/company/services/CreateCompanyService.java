@@ -1,4 +1,4 @@
-package br.com.keidsonroby.gestao_vagas.modules.company.useCases;
+package br.com.keidsonroby.gestao_vagas.modules.company.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,7 +9,7 @@ import br.com.keidsonroby.gestao_vagas.modules.company.entities.CompanyEntity;
 import br.com.keidsonroby.gestao_vagas.modules.company.repositories.CompanyRepository;
 
 @Service
-public class CreateCompanyUseCase {
+public class CreateCompanyService {
 
   @Autowired
   private CompanyRepository companyRepository;
