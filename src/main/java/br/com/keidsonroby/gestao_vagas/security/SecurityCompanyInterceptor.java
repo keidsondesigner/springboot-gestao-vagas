@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -29,7 +30,7 @@ public class SecurityCompanyInterceptor extends OncePerRequestFilter {
       )
         throws ServletException, IOException {
           // Zerando as autenticações anteriores
-          SecurityContextHolder.getContext().setAuthentication(null);
+          // SecurityContextHolder.getContext().setAuthentication(null);
           String header = request.getHeader("Authorization");
           // System.out.println("Header: " + header);
 
@@ -44,9 +45,12 @@ public class SecurityCompanyInterceptor extends OncePerRequestFilter {
               request.setAttribute("company_id", token.getSubject());
               
               var roles = token.getClaim("roles").asList(Object.class);
-
-              UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getSubject(), null, Collections.emptyList());
               
+              var grants = roles.stream().map(// trasnformo a lista em stream()
+                role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase()) // transformo o objeto em string
+              ).toList(); //  depois pego o stream() etransformo em uma lista novamente;
+
+              UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getSubject(), null, grants);
               SecurityContextHolder.getContext().setAuthentication(auth);
             }
           }
