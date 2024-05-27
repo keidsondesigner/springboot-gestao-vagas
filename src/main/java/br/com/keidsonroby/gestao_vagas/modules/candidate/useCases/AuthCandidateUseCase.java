@@ -45,13 +45,18 @@ public class AuthCandidateUseCase {
     }
 
     Algorithm algorithm = Algorithm.HMAC256(secretKey); // tipo do algoritimo de criptografia
+    var expiresIn = Instant.now().plus(Duration.ofHours(2));
+
     var token = JWT.create().withIssuer("gestao_vagas")
-      .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
       .withSubject(candidate.getId().toString())
       .withClaim("roles", Arrays.asList("ROLE_CANDIDATE"))
+      .withExpiresAt(expiresIn)
       .sign(algorithm);
 
-      var authCandidateResponse = AuthCandidateResponseDTO.builder().acess_token(token).build();
+      var authCandidateResponse = AuthCandidateResponseDTO.builder()
+        .acess_token(token)
+        .expires_in(expiresIn.toEpochMilli()) // Convertendo o Instant para milissegundos
+        .build();
 
       return authCandidateResponse;
   }
