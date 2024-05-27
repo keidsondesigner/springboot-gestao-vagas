@@ -9,9 +9,9 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 @Service
-public class JWTCompanyProvider {
+public class JWTCandidateProvider {
 
-  @Value("${security.token.secret.company}") // Acessando a variável no application.properties
+  @Value("${security.token.secret.candidate}")
   private String secretKey;
 
   public DecodedJWT validateToken(String token) {
@@ -22,8 +22,8 @@ public class JWTCompanyProvider {
     try {
       var tokenDecoded = JWT.require(algorithm).build().verify(token);
       return tokenDecoded;
-    } catch (JWTVerificationException exception) {
-      exception.printStackTrace();
+    } catch (JWTVerificationException e) {
+      e.printStackTrace();
       return null;
     }
   }

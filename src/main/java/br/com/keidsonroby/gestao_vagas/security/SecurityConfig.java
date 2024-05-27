@@ -13,7 +13,10 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class SecurityConfig {
 
   @Autowired
-  private SecurityInterceptor securityInterceptor;
+  private SecurityCompanyInterceptor securityCompanyInterceptor;
+
+  @Autowired
+  private SecurityCandidateInterceptor securityCandidateInterceptor;
 
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -22,13 +25,13 @@ public class SecurityConfig {
           // Rotas públicas;
           auth.requestMatchers("/candidate/").permitAll()
               .requestMatchers("/company/").permitAll()
-              .requestMatchers("/auth/company").permitAll()
               .requestMatchers("/company/auth").permitAll()
               .requestMatchers("/candidate/auth").permitAll();
-          // E qualque outra, serão Rotas privadas e precisam de autenticação;
+          // qualque outra rota, serão Rotas privada, que precisam de autenticação Token;
           auth.anyRequest().authenticated();
         })
-        .addFilterBefore(securityInterceptor, BasicAuthenticationFilter.class);
+        .addFilterBefore(securityCandidateInterceptor, BasicAuthenticationFilter.class)
+        .addFilterBefore(securityCompanyInterceptor, BasicAuthenticationFilter.class);
     return http.build();
   }
 

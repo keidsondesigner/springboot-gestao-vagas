@@ -1,25 +1,24 @@
 package br.com.keidsonroby.gestao_vagas.security;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.com.keidsonroby.gestao_vagas.providers.JWTCompanyProvider;
+import br.com.keidsonroby.gestao_vagas.providers.JWTCandidateProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class SecurityCompanyInterceptor extends OncePerRequestFilter {
+public class SecurityCandidateInterceptor extends OncePerRequestFilter {
 
   @Autowired
-  private JWTCompanyProvider jwtCompanyProvider;
+  private JWTCandidateProvider jwtCandidateProvider;
+
 
   @Override
   protected void doFilterInternal(
@@ -31,23 +30,21 @@ public class SecurityCompanyInterceptor extends OncePerRequestFilter {
           // Zerando as autenticações anteriores
           SecurityContextHolder.getContext().setAuthentication(null);
           String header = request.getHeader("Authorization");
-          // System.out.println("Header: " + header);
 
-          if (request.getRequestURI().startsWith("/company")) {
+          if (request.getRequestURI().startsWith("/candidate")) {
             if (header != null) {
-              var token = this.jwtCompanyProvider.validateToken(header);
+              var token = this.jwtCandidateProvider.validateToken(header);
+  
               if (token == null) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
               }
-
-              request.setAttribute("company_id", token.getSubject());
+  
+              request.setAttribute("candidate_id", token.getSubject());
               
               var roles = token.getClaim("roles").asList(Object.class);
 
-              UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getSubject(), null, Collections.emptyList());
-              
-              SecurityContextHolder.getContext().setAuthentication(auth);
+              System.out.println("Token: " + token);
             }
           }
 
