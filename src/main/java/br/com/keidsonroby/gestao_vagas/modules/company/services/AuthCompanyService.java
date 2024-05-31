@@ -23,7 +23,7 @@ import br.com.keidsonroby.gestao_vagas.modules.company.repositories.CompanyRepos
 @Service
 public class AuthCompanyService {
 
-  @Value("${security.token.secret}") // Acessando a variável no application.properties
+  @Value("${security.token.secret.company}") // Acessando a variável no application.properties
   private String secretKey;
 
   @Autowired

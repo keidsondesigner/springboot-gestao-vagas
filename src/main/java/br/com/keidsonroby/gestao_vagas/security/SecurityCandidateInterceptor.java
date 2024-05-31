@@ -42,14 +42,14 @@ public class SecurityCandidateInterceptor extends OncePerRequestFilter {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
               }
-  
-              request.setAttribute("candidate_id", token.getSubject());
               
               var roles = token.getClaim("roles").asList(Object.class);
-
+              
               var grants = roles.stream().map(// trasnformo a lista em stream()
-                role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase()) // transformo o objeto em string
+              role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase()) // transformo o objeto em string
               ).toList(); //  depois pego o stream() etransformo em uma lista novamente;
+
+              request.setAttribute("candidate_id", token.getSubject());
 
               UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(token.getSubject(), null, grants);
               SecurityContextHolder.getContext().setAuthentication(auth);
