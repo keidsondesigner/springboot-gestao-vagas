@@ -1,0 +1,66 @@
+# CREATE COMPANY
+POST http://localhost:8080/company/
+Content-Type: application/json
+
+{
+  "name": "Empresa teste 10 vagas",
+  "username": "empresa_teste10",
+  "email": "empresateste10@gmail.com",
+  "password": "1234567890",
+  "website": "https://www.functiondev.com.br",
+  "description": "Vagas de Dev aqui na empresa tal."
+}
+###
+
+# CREATE CANDIDATE
+POST http://localhost:8080/candidate/
+Content-Type: application/json
+
+{
+  "name": "keidson10",
+  "username": "keidson_10",
+  "email": "keidsonteste10@gmail.com",
+  "password": "1234567890",
+  "description": "uma apresentção sobre Keidson."
+}
+###
+
+# AUTH CANDIDATE - CRIANDO TOKEN
+POST http://localhost:8080/candidate/auth
+Content-Type: application/json
+
+{
+  "username": "keidson_4",
+  "password": "1234567890"
+}
+###
+
+# AUTH COMPANY - CRIANDO TOKEN
+POST http://localhost:8080/company/auth
+Content-Type: application/json
+
+{
+  "username": "empresa_teste2",
+  "password": "1234567890"
+}
+###
+
+# CREATE JOB - COM TOKEN DA COMPANY
+POST http://localhost:8080/company/job/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXN0YW9fdmFnYXMiLCJzdWIiOiIzMmJmOTU3NC1lYjQyLTQ1OTUtOTliOS01NGUxOTNlMjkxNTMiLCJyb2xlcyI6WyJDT01QQU5ZIl0sImV4cCI6MTcxNzE5NDM2Mn0.HCU7A8C5URy1Yd7RWDs6DRXu17N4YcEcn-EPcmnYnJM
+
+{
+  "title": "Teste 5 Recuperando o Token Company",
+  "description": "(COM REQUEST TOKEN)Vagas para Devs. com SpringSecurity",
+  "benefits": "total pass, vr, va",
+  "level": "PLENO"
+}
+###
+
+
+# GET INFO CANDIDADTE - COM TOKEN DO CANDIDATE
+POST http://localhost:8080/candidate/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXN0YW9fdmFnYXMiLCJzdWIiOiIzMmJmOTU3NC1lYjQyLTQ1OTUtOTliOS01NGUxOTNlMjkxNTMiLCJyb2xlcyI6WyJDT01QQU5ZIl0sImV4cCI6MTcxNzE5NDM2Mn0.HCU7A8C5URy1Yd7RWDs6DRXu17N4YcEcn-EPcmnYnJM
+###
